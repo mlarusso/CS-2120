@@ -176,6 +176,12 @@ SOME THEOREMS INVOLVING FALSE AND NEGATION
 
 theorem no_contradiction : ∀ (P : Prop), ¬(P ∧ ¬P) :=
 begin
+  assume P,
+  assume h,
+  have p := h.left,
+  have np := h.right,
+  have f := prop,
+  exact f,
 end
 
 /-
@@ -304,4 +310,5 @@ begin
   cases h,                -- there are *zero* ways to build a proof of 0 = 1
                           -- case analysis discharges our "proof obligation"
 end
+
 
