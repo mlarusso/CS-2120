@@ -223,10 +223,83 @@ theorem distrib_and_or_foil :
   (P ∧ R) ∨ (P ∧ S) ∨ (Q ∧ R) ∨ (Q ∧ S) :=
 begin
   assume P Q R S,
+
+  --iff intro (left and right)
   apply iff.intro,
-  assume prop,
-  apply or.intro_left,
-  
+  assume first,
+  cases first,
+  cases first_left,
+  cases first_right,
+  apply or.inl,
+
+  have x := and.intro
+  first_left
+  first_right,
+  exact x,
+
+  apply or.inr,
+  apply or.inl,
+
+  have x := and.intro
+  first_left
+  first_right,
+  exact x,
+  --right
+  cases first_right,
+  apply or.inr,
+  apply or.inr,
+  apply or.inl,
+  --repeat again,
+  have x:= and.intro
+  first_left
+  first_right,
+  exact x,
+  apply or.inr,
+  apply or.inr,
+  apply or.inr,
+
+  have x:= and.intro
+  first_left
+  first_right,
+  exact x,
+  assume second,
+  cases second,
+  apply and.intro,
+  apply or.inl,
+  --proof other side
+  have x := and.left second,
+  exact x,
+  apply or.inl,
+  have x := and.right second,
+  exact x,
+  cases second,
+  apply and.intro,
+  apply or.inl,
+
+  have x:= and.left second,
+  exact x,
+  apply or.inr,
+  --right left
+  have x := and.right second,
+  exact x,
+  cases second,
+  apply and.intro,
+  apply or.inr,
+  have x := and.left second,
+  exact x,
+  apply or.inl,
+
+  have x := second.right,
+  exact x,
+  apply and.intro,
+  apply or.inr,
+
+  have x := second.left,
+  exact x,
+  apply or.inr,
+
+  have x := second.right,
+  exact x,
 end
 
 
