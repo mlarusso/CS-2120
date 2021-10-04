@@ -27,3 +27,5 @@ example : ∀ (n : ℕ), (ev n → (∃ (m : ℕ), n = 2 * m)) :=
 begin
 
 end
+
+example : ∃ (a b c : ℕ), 
