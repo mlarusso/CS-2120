@@ -19,6 +19,7 @@ example : 0 ≠ 0 → 2 = 3 :=
 begin
   assume h,
   have f : false := h (eq.refl 0),
+  -- could use contradiction, to prove false
   exact false.elim (f),
 end
 
@@ -57,7 +58,7 @@ theorem neg_elim : ∀ (P : Prop), ¬¬P → P :=
 begin
   assume P,
   assume h,
-  have pornp := classical.em P,
+  have pornp := classical.em P, --classical reasoning, gives you P and not P
   cases pornp with p pn,
   assumption,
   contradiction,
