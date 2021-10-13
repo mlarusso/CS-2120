@@ -1,3 +1,4 @@
+-- Mia LaRusso mnl6sc 10/07/2021 --
 /- 
    *******************************
    PART 1 of 2: AXIOMS [50 points]
@@ -15,7 +16,7 @@ answers for some questions.
 
 -- -------------------------------------
 
-/- #1: → implies [5 points]
+/- #1: → implies [5 points] 
 
 INTRODUCTION
 
@@ -34,20 +35,25 @@ when given any proof of P as an argument
 returns a proof of Q. If you define such
 a function, you have proved P → Q.
 
-ELIMINATION
+ELIMINATION --TODO
 
 Complete the definition of the elimination
 rule for →.
 
+-- answer --
 (P Q : Prop) (p2q : P → Q) (p : P)
-----------------------------------
-     [replace with answer]
+---------------------------------- → elim
+              q : Q
 -/
 
--- Give a formal proof of the following
+-- Give a formal proof of the following --
+
+-- answer --
 example : ∀ (P Q : Prop) (p2q : P → Q) (p : P), Q :=
 begin
-  _
+  assume P Q,
+  assume p,
+  exact p,
 end
 
 -- Extra credit [2 points]. Who invented this principle?
@@ -72,7 +78,8 @@ inference rule notation.
 Give a brief English language explanation of
 the introduction rule for true.
 
--- answer here
+-- answer --
+-- true has a proof that is logically true --
 
 ELIMINATION
 
@@ -85,9 +92,10 @@ A proof of true carries no information so
 there's no use for an elimination rule.
 -/
 
--- Give a formal proof of the following:
+-- Give a formal proof of the following: 
 
-example : true := _
+-- answer --
+example : true := true.intro 
 
 
 -- -------------------------------------
@@ -105,16 +113,36 @@ introduction rule for ∧.
 ---------------------------- intro
         (pq : P ∧ Q)
 
-Given an English language description of
+Give an English language description of
 this inference rule. What does it really
 say, in plain simple English. 
 
--- answer here
+-- answer --
+/-If P and Q are propositions, in which a proof of P 
+and a proof of Q exist. We can deduce P and Q using the
+introduction rule for and on such proofs.-/
 
 ELIMINATION
 
-Given the elimination rules for ∧ in both
+Give the elimination rules for ∧ in both
 inference rule and English language forms.
+-/
+
+-- answer --
+/-
+(P Q : Prop) (pq : P ∧ Q)
+-------------------------- ∧ elim (left)
+            p : P
+
+(P Q : Prop) (pq : P ∧ Q)
+-------------------------- ∧ elim (right)
+          q : Q
+
+Assuming we have two propositions, P and Q, we can get
+a proof of P, p by applying the left and elimination 
+rule to the proposition: P and Q, and we can get a proof 
+of Q, q by applying the right and elimination rule to 
+the proposition: P and Q.
 -/
 
 /-
@@ -122,7 +150,13 @@ Formally state and prove the theorem that,
 for any propositions P and Q,  Q ∧ P → P. 
 -/
 
-example : _ := _
+-- answer --
+example : ∀ (P Q : Prop), Q ∧ P → P := 
+begin
+  assume P Q,
+  assume pq,
+  apply and.elim_right pq,
+end
 
 
 -- -------------------------------------
@@ -130,14 +164,22 @@ example : _ := _
 /- #4: ∀ - for all [10 points]
 
 INTRODUCTION
-
+LEC 4
 Explain in English the introduction rule for ∀. If 
 T is any type (such as nat) and Q is any proposition 
 (often in the form of a predicate on values of the
 given type), how do you prove ∀ (t : T), Q? What is
 the introduction rule for ∀?
 
--- answer here
+-- answer --
+/-
+For all types T, there exists a proof of Q, given that Q
+is a predicate that has some property that is of type T.
+To prove (∀ (t : T), Q) we assume that we are given some 
+property by Q that is of type T and then we prove Q is true. 
+If Q is proven to be true, asserting a property of type T, 
+then we an assume that it is true for all t of type T.
+-/
 
 ELIMINATION
 
@@ -147,16 +189,25 @@ filling in the bottom half, then Explain in English
 what it says.
 
 (T : Type) (Q : Prop), (pf : ∀ (t : T), Q) (t : T)
--------------------------------------------------- elim
-                [Replace with answer]
+-------------------------------------------------- ∀ elim
+                    (q : Q t)
 
--- English language answer here
+-- answer --
+For all types T, there exists a proposition of Q that 
+asserts some property of type T. We have a proof (pf) that
+for all t of type T, t has a property Q. We use the elimination
+rule for ∀ by applying pf to t which will provide a proof that
+t has the property Q.
+
 
 Given a proof, (pf : ∀ (t : T), Q), and a value, (t : T),
 briefly explain in English how you *use* pf to derive a
 proof of Q.
 
--- answer here
+-- answer here --
+We use pf to prove Q by applying pf to t. Since for all t
+of type T, t has property Q, we can assume Q is true for all 
+types t, in doing so we can derive the proof Q is true.
 -/
 
 /-
@@ -171,17 +222,20 @@ axioms
   (LogicMakesYouBetterAtCS: 
     ∀ (p : Person), KnowsLogic p → BetterComputerScientist p)
   -- formalizee the following assumptions here
+  -- answers --
   -- (1) Lynn is a person
+  (Lynn p: Person)
   -- (2) Lynn knows logic
-  -- add answer here
-  -- add answer here
+  (LKL: KnowsLogic p)
 
 /-
 Now, formally state and prove the proposition that
 Lynn is a better computer scientist
 -/
-example : _ := _
-
+example : ∀ (p : Person), (Lynn p: BetterComputerScientist p):= 
+/-I am not sure why Lynn is not working for for this problem.
+My thought process was to use Lynn of type p (Person) is a
+better computer scientist (BetterComputerScientist p). -/
 
 
 -- -------------------------------------
@@ -196,16 +250,22 @@ Lean's definition of not.
 -/
 
 namespace hidden
-def not (P : Prop) := _ -- fill in the placeholder
+def not (P : Prop) := P → false -- answer --
 end hidden
 
 /-
 Explain precisely in English the "proof strategy"
 of "proof by negation." Explain how one uses this
 strategy to prove a proposition, ¬P. 
+-/ 
+
+-- answer --
+/-Proof by negation derives a proof of not P from the 
+proof that P implies false.
+The rule proves a proposition ¬P by assuming P is true and 
+then showing that P implies false through a contradiction 
 -/
 
--- answer here
 
 /-
 Explain precisely in English the "proof strategy"
@@ -213,17 +273,21 @@ of "proof by contradiction." Explain how one uses
 this strategy to prove a proposition, P (notice 
 the lack of a ¬ in front of the P). 
 
+--answer--
+Proof by contradiction proves P by assuming ¬P and 
+then deriving false from this assumption.
+
 Fill in the blanks the following partial answer:
 
-To prove P, assume ____ and show that __________.
-From this derivation you can conclude __________.
-Then you apply the rule of negation ____________
+To prove P, assume ¬P and show that *there is a contradiction.*
+From this derivation you can conclude *¬¬P*.
+Then you apply the rule of negation *elimination*
 to that result to arrive a a proof of P. We have
 seen that the inference rule you apply in the 
 last step is not constructively valid but that it
-is __________ valid, and that accepting the axiom
-of the __________ suffices to establish negation
-__________ (better called double _____ _________)
+is *classically* valid, and that accepting the axiom
+of the proposition suffices to establish negation
+*¬P* (better called double negation elimination)
 as a theorem.
 -/
 
@@ -253,9 +317,23 @@ that iff has both elim_left and elim_right
 rules, just like ∧.
 -/
 
-example : _ :=
+-- answer --
+example : ∀ (P Q : Prop), (P ∧ Q) ↔ (P ∧ Q) :=
 begin
-_
+  assume P Q,
+  apply iff.intro,
+
+  assume pq,
+  cases pq,
+  apply and.intro,
+  exact pq_left,
+  exact pq_right,
+
+  assume qp,
+  cases qp,
+  apply and.intro,
+  exact qp_left,
+  exact qp_right,
 end
 
 
@@ -277,7 +355,15 @@ previously have used assume followed by
 a list of identifiers. Think about what
 each expression means. 
 -/
-
+--answers--
+/- For all types Person there exists a proposition 
+that a Person is Nice, a Person is Talented, and a 
+Person likes a Person of a certain proposition. The proof
+elantp prooves that for all types person, a Nice person
+implies a Talented person which implies that for all types 
+Person, (everyone) likes JohnLennon because JohnLennon is a
+Nice and Talented Person. 
+-/
 def ELJL : Prop := 
   ∀ (Person : Type) 
     (Nice : Person → Prop)
@@ -285,15 +371,21 @@ def ELJL : Prop :=
     (Likes : Person → Person → Prop)
     (elantp : ∀ (p : Person), 
       Nice p → Talented p → 
+
       ∀ (q : Person), Likes q p)
     (JohnLennon : Person)
     (JLNT : Nice JohnLennon ∧ Talented JohnLennon),
     (∀ (p : Person), Likes p JohnLennon) 
     
-
-example : ELJL :=
+--answer--
+example : ELJL := 
 begin
-  _
+  intros Person Nice Talented Likes elantp JohnLennon JLNT q,
+  have a := JLNT.right,
+  have b := JLNT.left,
+  have c := elantp JohnLennon b a,
+  have d := q,
+  apply c,
 end
 
 
@@ -301,13 +393,22 @@ end
 /- #8 [10 points]
 
 If every car is either heavy or light, and red or 
-blue, and we want a prove by cases that every car 
-is rad, then: 
+blue, and we want a prove by cases that if every car 
+is rad, then:
+the car is
+ rad and heavy and red or
+ rad and heavy and blue or
+ rad and light and red or 
+ rad and light and blue
 
--- how many cases will need to be considered? __
+
+-- how many cases will need to be considered? 4 cases
 -- list the cases (informaly)
-    -- answer here
-
+    -- answer here --
+    rad and heavy and red
+    rad and heavy and blue
+    rad and light and red 
+    rad and light and blue
 -/
 
 /-
@@ -336,12 +437,12 @@ to write them formally, to show that you what
 the terms means.)
 -/
 
+-- answers --
 def eq_is_symmetric : Prop :=
-  ∀ (T : Type) (x y : T), _
+  ∀ (T : Type) (x y : T), x = y → y = x
 
 def eq_is_transitive : Prop :=
-  _
-
+  ∀ (T : Type) (a b c : T), a = b → b = c → a = c
 
 /-
   ************
@@ -357,9 +458,19 @@ the correct proposition, 2 points for proving it
 in one direction and five points for proving it
 both directions. 
 -/
-
+--LEC 10
 def negelim_equiv_exmid : Prop := 
-  _
+∀ (P : Prop),
+(P ∨ ¬P) → (¬¬ P)
+
+example: negelim_equiv_exmid :=
+begin
+  assume P,
+  assume p,
+  cases p,
+  contradiction,
+  
+end
 
 
 /- 
@@ -371,4 +482,9 @@ thre is someone who loves everyone. [5 points]
 
 axiom Loves : Person → Person → Prop
 
-example : _ := _
+example : ∀(Person : Prop), Person → Person:= 
+begin
+  assume P,
+  assume p,
+  exact p,
+end
