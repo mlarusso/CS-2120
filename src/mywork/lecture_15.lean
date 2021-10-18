@@ -108,7 +108,7 @@ begin
 end
 
 /-
-As you now already kno, the cases tactic applies 
+As you now already know, the cases tactic applies 
 the elimination rule for the given form of value.  
 So, here, it applies or.elim (and a few clean-up
 tactics). Put your cursor at the end of the cases
@@ -174,3 +174,4 @@ concept of information hiding abstraction is at
 the heart of mathematics and programming. Here
 you see a particularly simple exampe of it.
 -/
+
