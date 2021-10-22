@@ -293,7 +293,7 @@ Powerset
 
 def powerset (s : set α) : set (set α) :=
 {t | t ⊆ s}
-
+--\ss is subset (⊆)
 -- Question: What's the type of t, here?
 
 -- notation 𝒫 s := powerset s
@@ -309,7 +309,7 @@ to every value in s.
 
 def image (f : α → β) (s : set α) : set β :=
 {b | ∃ a, a ∈ s ∧ f a = b}
-
+--for set b there exists some a in s for which f applied to a = b
 /-
 The formal definition sort of goes to a 
 next level of sophistication in the use
