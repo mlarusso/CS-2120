@@ -47,12 +47,24 @@ What does this propositon say? Explain it in
 plain English. Here's a start: "If there's a 
 function that maps/takes every α value that ... 
 -- your completed English rendition here:
+
+If there exists a function f that takes every α value
+that implies β, then for all properties a of type α there's 
+a predicate p with some property a which implies a 
+predicate q with some property a of type α given the function f
+(α implies β). 
+This implies that there exists a property a of type α that 
+is a property of a predicate p, finally resulting that there
+exists a property b of type β that is a property of a predicate
+q.
+
 -/
 
 
 -- Give your formal proof here
 begin
-  _
+  assume x,
+  cases 
 end
   
 
