@@ -136,7 +136,13 @@ begin
   exact rfl,
 end
 
-example (n : ℕ): equivalence (cong_mod_nat n) :=
+
+-- You prove it
+example : ∀ n, equivalence (cong_mod_nat n) :=
 begin
+<<<<<<< HEAD:src/mywork/lecture_22.lean
   --TODO
 end
+=======
+end
+>>>>>>> 19a8c006ec6bf6ef41e0550632ff34601b2c17ae:src/instructor/lectures/lecture_22.lean
