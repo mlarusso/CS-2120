@@ -14,7 +14,7 @@ related to y".
 -/
 variables {α β : Type}  (r : β → β → Prop)
 local infix `≺` : 50 := r  
-
+--...is realated to...
 
 /-
 The default Lean libraries are missing definitions
@@ -132,7 +132,7 @@ begin
 end
 
 
-/- #4
+/- #5
 Prove the following propositions. Remember that
 throughout this file, each definition implicitly
 includes β as a type and r as an arbitrary binary 
