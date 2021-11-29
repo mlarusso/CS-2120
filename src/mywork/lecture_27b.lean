@@ -1,3 +1,6 @@
+/- Mia LaRusso mnl6sc
+working with Nikita Jeyasingh npj5kr-/
+
 import .lecture_26
 import data.set
 
@@ -329,6 +332,7 @@ is a function is said to be invertible (as a function, as
 every relation has and inverse that is again a relation). 
 -/
 
+--HW 8
 /-
 EXERCISE #1: Prove that the inverse of a 
 bijective function is a function. Ok, yes, 
@@ -418,29 +422,105 @@ def bijectivep := function r ∧ bijective (dom_res r (dom_of_def r))
 
 
 
-
+--TO DO
 -- EXERCISE #2: Prove that the inverse of a bijective function is bijective.
 example : bijective r → bijective (inverse r) :=
 begin
+  assume rb,
+
+  cases rb with rs ri,
+  cases ri with rtot r_one_to_one,
+  cases rs with rtot r_onto,
+  unfold total_function at rtot, 
+  cases rtot with r_fun alldef,
+  unfold function at r_fun,
+  unfold single_valued at r_fun,
+  unfold defined at alldef,
+
+  unfold bijective,
+  unfold inverse,
+  split,
+  unfold surjective,
+  unfold total_function,
+  split,
+  unfold defined,
+  unfold function,
+  split,
+  unfold single_valued,
+  assume b y z,
+  apply r_one_to_one,
+
+  assume b,
+  apply r_onto b,
+
+  assume a,
+  apply alldef a,
+
+  unfold injective,
+  unfold total_function,
+  split,
+  unfold defined,
+  unfold function,
+  split,
+  unfold single_valued,
+  assume b y z,
+  apply r_one_to_one,
+
+  assume b,
+  apply r_onto b,
+
+  assume b y z,
+  apply r_fun,
 end
 
 
+--TO DO
 /-
 EXERCISE #3: Prove that the inverse of the inverse of a bijective
 function is that function.
 -/
 example : bijective r → (r = inverse (inverse r)) :=
 begin
+  assume rb,
+  
+  cases rb with rs ri,
+  cases ri with rtot r_one_to_one,
+  cases rs with rtot r_onto,
+  unfold total_function at rtot, 
+  cases rtot with r_fun alldef,
+  unfold function at r_fun,
+  unfold single_valued at r_fun,
+  unfold defined at alldef,
+
+  unfold inverse,
 end
 
+--TO DO
 /-
 EXERCISE  #4: Formally state and prove that every injective function 
 has a *function* as an inverse.
 -/
 example : injective r → function (inverse r) :=
-  _ -- hint: remember recent work
+begin
+  assume ri,
+  
+  cases ri with rtot r_one_to_one,
+  unfold total_function at rtot, 
+  cases rtot with r_fun alldef,
+  unfold function at r_fun,
+  unfold single_valued at r_fun,
+  unfold defined at alldef,
+
+  unfold function,
+  unfold single_valued,
+  
+  assume b y z irby irbz,
+
+  apply r_one_to_one irby irbz,
+end
 
 
+--TO DO
 /-
 EXERCISE #5. Is bijectivity transitive? In other words, if the
 relations, s and r, are both bijective, then is the
@@ -450,14 +530,69 @@ we'll see.
 
 open relations    -- for definition of composition
 
+--TO DO
 /-
 Check the following proposition. True? prove it for all.
 False? Present a counterexample.
 -/
 def bij_trans (s : β → γ → Prop)  (r : α → β → Prop) :
   bijective r → bijective s → bijective (composition s r) := 
-  _
+begin
+  assume rb rs,
+  
+  cases rb with rs ri,
+  cases ri with rtot r_one_to_one,
+  cases rs with rtot r_onto,
+  
+  cases rs with a b,
+  unfold surjective at a,
+  unfold total_function at a,
+  cases a with x y,
+  unfold function at x,
+  unfold single_valued at x,
+  unfold defined at x,
+  cases x,
 
+  unfold injective at b,
+  unfold total_function at b,
+  cases b with g h,
+  unfold function at g,
+  unfold defined at g,
+  unfold single_valued at g,
+  cases g,
+
+  unfold total_function at rtot, 
+  cases rtot with r_fun alldef,
+  unfold function at r_fun,
+  unfold single_valued at r_fun,
+  unfold defined at alldef,
+  unfold total_function at rtot,
+  cases rtot with j k,
+  unfold function at j,
+  unfold single_valued at j,
+  unfold defined at k,
+
+  unfold bijective, 
+  unfold composition,
+  split,
+  unfold surjective,
+  unfold total_function,
+  split,
+  
+  unfold function,
+  unfold defined,
+  unfold single_valued,
+  split,
+  assume x y z,
+  assume p1 p2,
+  cases p1 with p1_l p1_r,
+  cases p2 with p2_l p2_r,
+  cases p1_r,
+  --we are a bit stuck on this 
+
+end
+
+  
 /-
 In general, an operation (such as inverse, here) that, 
 when applied twice, is the identity, is said to be an
