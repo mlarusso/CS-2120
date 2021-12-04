@@ -1,6 +1,14 @@
 import .lecture_28
 -- defines sum_up_to 
-
+--inductive nat: Type (declaring type of nat)
+/- Notes 11/29/21
+Inductive: key word
+nat: Type (nat of type Type)
+next we add introduction rules
+two constructors: nat 0 of type nat &  
+functions involving natural numbers: increment function, decrement function
+define multiplication of type natural numbers 
+can you define exponentiation? iterated multiplication-/
 /-
 To review, last time we ended applying induction
 to define two fundamental total functions, from 

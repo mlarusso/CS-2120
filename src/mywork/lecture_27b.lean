@@ -538,6 +538,7 @@ False? Present a counterexample.
 def bij_trans (s : β → γ → Prop)  (r : α → β → Prop) :
   bijective r → bijective s → bijective (composition s r) := 
 begin
+<<<<<<< HEAD:src/mywork/lecture_27b.lean
   assume rb rs,
   
   cases rb with rs ri,
@@ -589,6 +590,33 @@ begin
   cases p2 with p2_l p2_r,
   cases p1_r,
   --we are a bit stuck on this 
+=======
+assume br bs,
+split,
+-- surjective
+unfold surjective,
+split,
+  -- compoisition total
+  unfold total_function,
+  split,
+   -- composition is a function
+   unfold function single_valued,
+   assume x y z srxy srxz,
+   unfold bijective at br bs,
+   cases bs,
+   cases br,
+   unfold composition at srxy srxz,
+   unfold surjective at  bs_left,
+   unfold surjective at  br_left,
+   unfold injective at br_right bs_right,
+   cases bs_left,
+   cases br_left,
+   cases bs_right,
+   cases br_right,
+   -- composition is defined for all α 
+-- injective
+end
+>>>>>>> c64523ad756aa368184000047f37dee358574ee9:src/instructor/lectures/lecture_27b.lean
 
 end
 
